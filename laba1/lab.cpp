@@ -24,8 +24,14 @@ int main(){
        cin >> c;
        switch (c) {
            case 1:
-               cout << "Norm" << endl;
+               pthread_cancel(th);
+               cout << "Sleep" << endl;
+               system(" systemctl suspend");
                break;
+           case 2:
+               pthread_cancel(th);
+               cout << "Hibernation" << endl;
+               system("systemctl hibernate");
            case 3:
                pthread_cancel(th);
                pthread_create(&th, NULL, reinterpret_cast<void *(*)(void *)>(&all), NULL);

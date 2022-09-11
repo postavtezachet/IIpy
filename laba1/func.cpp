@@ -2,7 +2,7 @@
 #include <fstream>
 #include <unistd.h>
 #include "func.hpp"
-//AAAAAAAAAAAA
+
 using namespace std;
 
 long int perev(string buf){

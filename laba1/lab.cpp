@@ -1,44 +1,50 @@
 #include<iostream>
 #include<fstream>
+#include <thread>
+#include <pthread.h>
 #include "func.hpp"
+
+int pthread_create(pthread_t *pInt);
+
 using namespace std;
-class metric{
-  public:
-    string capacity;
-    string Name;
-    string Type;
-    string Status;
-    string Present;
-    string Technology;
-    string EnergyNow;
-    string Power;
 
-    metric (string capacity,string Name,string Type,string Status,string Present,string Technology,string EnergyNow,string Power){
-      this->capacity = capacity;
-      this->Name = Name;
-      this->Type = Type;
-      this->Status = Status;
-      this->Present = Present;
-      this->Technology = Technology;
-      this->EnergyNow = EnergyNow;
-      this->Power = Power;
-    }
-
-};
 
 int main(){
 
-  ifstream fi("/sys/class/power_supply/BAT0/uevent");
-  char buf[14][40];
-  for(int i =0;i<13;i++)
-    fi.getline(buf[i],50);
 
-  metric numb(buf[12],buf[0],buf[1],buf[2],buf[3],buf[4],buf[8],buf[11]);
-  std::cout << numb.capacity << '\n';
-  int res = perev(numb.capacity);
-  std::cout << res << '\n';
-  fi.close();
+  int c;
+    pthread_t th;
+  while(1) {
+       cout << "Input what you want to do\n";
+       cout << "If you want to exit input 99\n";
+       cout << "1: Go to sleep\n";
+       cout << "2: Go to hibernates\n";
+       cout << "3: show battery inf\n";
+       cout << "4: stop show inf\n";
+       cin >> c;
+       switch (c) {
+           case 1:
+               cout << "Norm" << endl;
+               break;
+           case 3:
+               pthread_cancel(th);
+               pthread_create(&th, NULL, reinterpret_cast<void *(*)(void *)>(&all), NULL);
+               break;
+           case 4:
+               pthread_cancel(th);
+               break;
+           case 99:
+               break;
+           default:
+               printf("Error\n");
+               break;
+       }
+       if (c == 99) {
+           break;
+       }
 
-
+       rewind(stdin);
+   }
+    pthread_cancel(th);
   return 0;
 }

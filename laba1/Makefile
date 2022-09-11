@@ -4,7 +4,7 @@ FLAGS= -c -Wall -std=c++11
 all: lab
 
 lab: main func
-	$(CC)  lab.o func.o -o lab
+	$(CC)  lab.o func.o -pthread -o lab
 main: lab.cpp
 	$(CC) $(FLAGS) lab.cpp -o lab.o
 func: func.cpp
